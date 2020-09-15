@@ -10,13 +10,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_screen.dart';
+import 'package:mygarage/provider/garage_provider.dart';
+import 'package:provider/provider.dart';
 
 class Payment extends StatefulWidget {
 
-
   // a constructor which takes values from the cost screen
-  Payment({this.time2,this.time1,this.pageNumber});
-  final String time1,time2;
+  Payment({this.pageNumber});
   final int pageNumber;
   @override
   _PaymentState createState() => _PaymentState();
@@ -77,6 +77,7 @@ class _PaymentState extends State<Payment> {
   }
   @override
   Widget build(BuildContext context) {
+    var myProvider = Provider.of<GarageProvider>(context);
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -130,8 +131,8 @@ class _PaymentState extends State<Payment> {
                     });
 //-------------------------------------------------------------------------------
                     _firestore.collection('booking').add({
-                      'fromTime': widget.time1,
-                      'toTime': widget.time2,
+                      'fromTime': myProvider.fromTime,
+                      'toTime': myProvider.toTime,
 
                     });
 //-------------------------------------------------------------------------------

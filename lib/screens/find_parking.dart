@@ -6,6 +6,8 @@ import 'package:mygarage/screens/booking.dart';
 import 'package:mygarage/screens/login_screen.dart';
 import 'exit_garage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mygarage/provider/garage_provider.dart';
+import 'package:provider/provider.dart';
 
 class FindParking extends StatefulWidget {
   FindParking({this.check, this.pageNumber});
@@ -112,6 +114,9 @@ class _FindParkingState extends State<FindParking> {
 
   @override
   Widget build(BuildContext context) {
+
+    var myProvider = Provider.of<GarageProvider>(context);
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -179,6 +184,7 @@ class _FindParkingState extends State<FindParking> {
                   textColor: Colors.white,
                   text: 'Park Now!',
                   onTap: () {
+                    myProvider.pageNumber=1;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -200,6 +206,7 @@ class _FindParkingState extends State<FindParking> {
                   textColor: Colors.white,
                   text: 'Park Now!',
                   onTap: () {
+                    myProvider.pageNumber=2;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -221,6 +228,7 @@ class _FindParkingState extends State<FindParking> {
                   textColor: Colors.white,
                   text: 'Park Now!',
                   onTap: () {
+                    myProvider.pageNumber=3;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -242,6 +250,7 @@ class _FindParkingState extends State<FindParking> {
                   textColor: Colors.white,
                   text: 'Park Now!',
                   onTap: () {
+                    myProvider.pageNumber=4;
                     Navigator.push(
                       context,
                       MaterialPageRoute(

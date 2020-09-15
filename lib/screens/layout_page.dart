@@ -6,12 +6,14 @@ import 'package:mygarage/reusables/reusable_button.dart';
 import 'package:mygarage/screens/cost.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_screen.dart';
+import 'package:mygarage/provider/garage_provider.dart';
+import 'package:provider/provider.dart';
 
 class LayoutPage extends StatefulWidget {
   // a constructor used to pass data from screen 'find parking'
-  LayoutPage({this.t2, this.t1,this.pageNumber, this.arrowImagePath,this.layoutImagePath,
+  LayoutPage({this.pageNumber, this.arrowImagePath,this.layoutImagePath,
     this.p1,this.p2,this.p3,this.p4, this.p5,this.p6});
-  final String t1,t2,layoutImagePath,arrowImagePath;
+  final layoutImagePath,arrowImagePath;
   final double p1,p2,p3,p4,p5,p6;
   final int pageNumber;
 
@@ -54,7 +56,10 @@ class _LayoutPageState extends State<LayoutPage>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+
+    var myProvider = Provider.of<GarageProvider>(context);
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -99,10 +104,10 @@ class _LayoutPageState extends State<LayoutPage>
                   ReusablePositioned(
                     left: widget.p1,
                     bottom: widget.p2,
-                    text: ((int.parse(widget.t1)) > 12 &&
-                        (int.parse(widget.t2)) > 12)
-                        ? '${(int.parse(widget.t1)) - 12} pm - ${(int.parse(widget.t2)) - 12} pm'
-                        : ' ${widget.t1} am - ${widget.t2} am',
+                    text: ((myProvider.fromTime > 12) &&
+                        (myProvider.toTime > 12))
+                        ? '${myProvider.fromTime - 12} pm - ${myProvider.toTime - 12} pm'
+                        : ' ${myProvider.fromTime} am - ${myProvider.toTime} am',
                   ),
                   Positioned(
                     left: widget.p3,
@@ -128,8 +133,6 @@ class _LayoutPageState extends State<LayoutPage>
                   context,
                   MaterialPageRoute(
                     builder: (context) => Cost(
-                      t1: widget.t1,
-                      t2: widget.t2,
                       pageNumber: widget.pageNumber,
                     ),
                   ),

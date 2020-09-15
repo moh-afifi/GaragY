@@ -7,11 +7,12 @@ import '../components/constants.dart';
 import 'package:mygarage/screens/payment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_screen.dart';
+import 'package:mygarage/provider/garage_provider.dart';
+import 'package:provider/provider.dart';
 
 class Cost extends StatefulWidget {
   // a constructor which takes values from the booking screens
-  Cost({this.t1, this.t2,this.pageNumber});
-  final String t1 , t2;
+  Cost({this.pageNumber});
   final int pageNumber;
   //---------------------------------------------------------------
   @override
@@ -22,6 +23,7 @@ class _CostState extends State<Cost> {
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    var myProvider = Provider.of<GarageProvider>(context);
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -68,7 +70,7 @@ class _CostState extends State<Cost> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    '${int.parse(widget.t2) - int.parse(widget.t1)} H',
+                    '${myProvider.toTime - myProvider.fromTime} H',
                     style: kGarageTextStyle2,
                   ),
                 ),
@@ -79,7 +81,7 @@ class _CostState extends State<Cost> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    '${(int.parse(widget.t2) - int.parse(widget.t1)) * 10} KWD ',
+                    '${(myProvider.toTime - myProvider.fromTime) * 10} KWD ',
                     style: kGarageTextStyle2,
                   ),
                 ),
@@ -95,8 +97,6 @@ class _CostState extends State<Cost> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Payment(
-                          time1: widget.t1,
-                          time2: widget.t2,
                           pageNumber: widget.pageNumber,
                         ),
                       ),
