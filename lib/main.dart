@@ -4,6 +4,8 @@ import 'package:mygarage/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'provider/garage_provider.dart';
 //-------------------------------------------------------------
+import 'package:flutter/material.dart';
+//-------------------------------------------------------------
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
